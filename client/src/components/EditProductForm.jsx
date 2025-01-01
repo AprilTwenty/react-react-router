@@ -4,23 +4,20 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 
 
 function EditProductForm() {
-  const [productData, setProductData] = useState({});
-
-  const [producName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [productImage, setProductImage] = useState("");
-  const [productDescription, setProductDescription] = useState ("");
+  const [productData, setProductData] = useState({
+    name: "",
+    price: "",
+    image: "",
+    description: ""
+  });
 
   const params = useParams();
 
-  const nevigate = useNavigate();
+  const navigate = useNavigate();
  
   useEffect(() => {
     getEditData();
-    setProductName(productData.name);
-    setProductPrice(productData.price);
-    setProductImage(productData.image);
-    setProductDescription(productData.description);
+
   },[params.id]);
 
   async function getEditData() {
@@ -37,17 +34,27 @@ function EditProductForm() {
     event.preventDefault();
     try {
       const data = {
-        name: producName,
-        price: productPrice,
-        image: productImage,
-        description: productDescription
+        name: productData.name,
+        price: productData.price,
+        image: productData.image,
+        description: productData.description
       }
       const result = await axios.put(`http://localhost:4001/products/${params.id}`, data);
       console.log(result);
-      nevigate("/");
+      navigate("/");
     } catch(error) {
         console.error("Error edit product data :", error);
     }
+  }
+
+  function handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    setProductData({
+      ...productData,
+      [name]: value
+    }
+    )
   }
 
   return (
@@ -61,8 +68,8 @@ function EditProductForm() {
             name="name"
             type="text"
             placeholder={productData.name}
-            value={producName}
-            onChange={(event) => {setProductName(event.target.value)}}
+            value={productData.name}
+            onChange={handleChange}
           />
         </label>
       </div>
@@ -74,8 +81,8 @@ function EditProductForm() {
             name="image"
             type="text"
             placeholder={productData.image}
-            value={productImage}
-            onChange={(event) => {setProductImage(event.target.value)}}
+            value={productData.image}
+            onChange={handleChange}
           />
         </label>
       </div>
@@ -87,8 +94,8 @@ function EditProductForm() {
             name="price"
             type="number"
             placeholder={productData.price}
-            value={productPrice}
-            onChange={(event) => {setProductPrice(event.target.value)}}
+            value={productData.price}
+            onChange={handleChange}
           />
         </label>
       </div>
@@ -100,8 +107,8 @@ function EditProductForm() {
             name="description"
             type="text"
             placeholder={productData.description}
-            value={productDescription}
-            onChange={(event) => {setProductDescription(event.target.value)}}
+            value={productData.description}
+            onChange={handleChange}
             rows={4}
             cols={30}
           />
