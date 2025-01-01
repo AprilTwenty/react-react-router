@@ -26,12 +26,17 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  flex-direction: column;
 }
 
 .app-wrapper .app-title {
   font-size: 60px;
   color: var(--primary-color);
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .view-product-container {
@@ -39,6 +44,7 @@ body {
   padding: 30px;
   background: var(--highlight-color);
   margin: 30px 0;
+  width: 100%;
 }
 
 .product {
@@ -47,6 +53,7 @@ body {
   background-color: var(--highlight-color);
   padding: 20px;
   border-radius: 15px;
+  flex-direction: row;
 }
 
 .product .product-detail {
@@ -57,10 +64,12 @@ body {
 
 .product .product-detail .product-actions {
   display: flex;
+
 }
 
 .product .product-preview {
   margin-right: 40px;
+
 }
 
 .product-text-input {
@@ -184,4 +193,10 @@ button {
   font-size: 30px;
   outline: none;
   border: 5px solid var(--secondary-color);
+}
+
+.navToHome {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
 }
